@@ -6,7 +6,23 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/25 19:26:34 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/25 22:16:06 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+
+#include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+size_t	ft_strlen(const char *s);
+void	ft_bzero(void *dst, size_t n);
+void	*ft_calloc(size_t nitems, size_t size);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_str_trim_back(char const *s);
+char	*ft_str_trim_front(char const *s);
+char	*ft_strchr(const char *str, int c);
+
+#endif
