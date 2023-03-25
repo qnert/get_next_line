@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/25 22:59:15 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/25 23:45:13 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,34 @@ char	*read_bytes(int fd)
 	buff = ft_calloc(4, sizeof(char));
 	read_value = read(fd, buff, 4);
 	if (read_value >= 1)
-	{
-		if (final_str == NULL)
-			final_str = buff;
-		else
-			final_str = ft_strjoin(final_str, buff);
-		printf("%s\n", final_str);
-	}
+		return (buff);
 	return (NULL);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*line_str;
+	char		*tmp_buff;
+
+	tmp_buff = read_bytes(fd);
+	while (tmp_buff != NULL)
+	{
+		if (line_str == NULL)
+			line_str = tmp_buff;
+		else
+			line_str = ft_strjoin(line_str, tmp_buff);
+		tmp_buff = read_bytes(fd);
+	}
+	return (line_str);
 }
 
 int main(void)
 {
 	int		fd;
+	char	*s;
 
 	fd = open("read.txt", O_RDONLY);
-	read_bytes(fd);
-	read_bytes(fd);
-	read_bytes(fd);
-	read_bytes(fd);
-	read_bytes(fd);
-	read_bytes(fd);
-
+	s = get_next_line(fd);
+	printf("%s\n", s);
 	return (0);
 }
