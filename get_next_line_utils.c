@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/25 22:15:38 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:17:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_strlen(const char *s)
 	{
 		i++;
 	}
-	return(i);
+	return (i);
 }
 
 void	ft_bzero(void *dst, size_t n)

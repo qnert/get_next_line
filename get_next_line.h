@@ -6,16 +6,16 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/25 22:16:06 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:17:00 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include <stddef.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *dst, size_t n);

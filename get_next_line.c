@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/25 23:45:13 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:17:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_next_line(int fd)
 	return (line_str);
 }
 
-int main(void)
+int	main(void)
 {
 	int		fd;
 	char	*s;
