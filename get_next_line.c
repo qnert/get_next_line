@@ -6,16 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/26 13:45:09 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:32:27 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
 
 char	*read_bytes(int fd)
 {
@@ -23,8 +18,8 @@ char	*read_bytes(int fd)
 	static char	*final_str;
 	char		*buff;
 
-	buff = ft_calloc(4, sizeof(char));
-	read_value = read(fd, buff, 4);
+	buff = ft_calloc(BUFFER_SIZE, sizeof(char));
+	read_value = read(fd, buff, BUFFER_SIZE);
 	if (read_value >= 1)
 		return (buff);
 	return (NULL);

@@ -6,11 +6,12 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/26 13:23:24 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/26 16:05:42 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 size_t	ft_strlen(const char *s)
 {
