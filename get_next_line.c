@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/26 00:17:09 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/26 13:45:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,65 @@ char	*read_bytes(int fd)
 	return (NULL);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	unsigned int		i;
+	unsigned int		s_len;
+	char				*sub_str;
+
+	i = 0;
+	s_len = ft_strlen((char *)s);
+	if (s_len - start > 0)
+	{
+		if (s_len - start < len || start > s_len)
+			len = s_len;
+	}
+	sub_str = ft_calloc(len + 1, sizeof(char));
+	if (sub_str == NULL)
+		return (NULL);
+	while (start < s_len && i < len && s[start] != '\0' && s[i] != '\0')
+	{
+		if (start > ft_strlen((char *)s))
+			break ;
+		sub_str[i] = s[start];
+		i++;
+		start++;
+	}
+	return (sub_str);
+}
+
+char	*ft_str_trim_back(char const *s)
+{
+	unsigned int	s_len;
+	unsigned int	cpy_len;
+
+	s_len = ft_strlen(s);
+	cpy_len = 0;
+	while (s[cpy_len])
+	{
+		cpy_len++;
+		if (s[cpy_len] == '\n')
+			break ;
+	}
+	return (ft_substr(s, 0, cpy_len + 1));
+}
+
+char	*ft_str_trim_front(char const *s)
+{
+	unsigned int	s_len;
+	unsigned int	start;
+
+	s_len = ft_strlen(s);
+	start = 0;
+	while (s[start])
+	{
+		start++;
+		if (s[start] == '\n')
+			break ;
+	}
+	return (ft_substr(s, start + 1, s_len - start));
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*line_str;
@@ -42,18 +101,28 @@ char	*get_next_line(int fd)
 			line_str = tmp_buff;
 		else
 			line_str = ft_strjoin(line_str, tmp_buff);
+		if (ft_strchr(line_str, '\n') != 0)
+			break ;
 		tmp_buff = read_bytes(fd);
 	}
-	return (line_str);
+	tmp_buff = line_str;
+	line_str = ft_str_trim_front(tmp_buff);
+	return (ft_str_trim_back(tmp_buff));
 }
 
 int	main(void)
 {
 	int		fd;
 	char	*s;
+	char	*s2;
+	char	*s3;
 
 	fd = open("read.txt", O_RDONLY);
 	s = get_next_line(fd);
-	printf("%s\n", s);
+	s2 = get_next_line(fd);
+	s3 = get_next_line(fd);
+	printf("%s", s);
+	printf("%s", s2);
+	printf("%s", s3);
 	return (0);
 }
