@@ -6,13 +6,16 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/26 16:32:17 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/27 16:03:55 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFER_SIZE 8
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 9
+# endif
 
 # include <fcntl.h>
 # include <stdio.h>

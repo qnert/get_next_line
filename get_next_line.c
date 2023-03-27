@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/26 16:32:27 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/27 16:00:44 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*read_bytes(int fd)
 {
 	int			read_value;
-	static char	*final_str;
 	char		*buff;
 
 	buff = ft_calloc(BUFFER_SIZE, sizeof(char));
@@ -33,11 +32,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	i = 0;
 	s_len = ft_strlen((char *)s);
-	if (s_len - start > 0)
-	{
-		if (s_len - start < len || start > s_len)
-			len = s_len;
-	}
+	if (start > s_len)
+		len = 0;
+	if (len > s_len)
+		len = s_len;
+	if (start + len > s_len)
+		len = s_len - start;
 	sub_str = ft_calloc(len + 1, sizeof(char));
 	if (sub_str == NULL)
 		return (NULL);
