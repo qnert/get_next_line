@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/27 16:00:44 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/27 20:52:49 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 char	*ft_str_trim_back(char const *s)
 {
-	unsigned int	s_len;
 	unsigned int	cpy_len;
 
-	s_len = ft_strlen(s);
 	cpy_len = 0;
 	while (s[cpy_len])
 	{
@@ -89,7 +87,11 @@ char	*get_next_line(int fd)
 	static char	*line_str;
 	char		*tmp_buff;
 
+	if (fd < 0)
+		return (NULL);
 	tmp_buff = read_bytes(fd);
+	if (tmp_buff == NULL)
+		return (NULL);
 	while (tmp_buff != NULL)
 	{
 		if (line_str == NULL)
@@ -105,19 +107,19 @@ char	*get_next_line(int fd)
 	return (ft_str_trim_back(tmp_buff));
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*s;
-	char	*s2;
-	char	*s3;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*s;
+// 	char	*s2;
+// 	char	*s3;
 
-	fd = open("read.txt", O_RDONLY);
-	s = get_next_line(fd);
-	s2 = get_next_line(fd);
-	s3 = get_next_line(fd);
-	printf("%s", s);
-	printf("%s", s2);
-	printf("%s", s3);
-	return (0);
-}
+// 	fd = open("read.txt", O_RDONLY);
+// 	s = get_next_line(0);
+// 	s2 = get_next_line(0);
+// 	s3 = get_next_line(0);
+// 	printf("%s", s);
+// 	printf("%s", s2);
+// 	printf("%s", s3);
+// 	return (0);
+// }
