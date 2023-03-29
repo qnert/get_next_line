@@ -6,12 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/26 16:05:42 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/29 10:22:02 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -50,14 +49,14 @@ void	*ft_calloc(size_t nitems, size_t size)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_free(const char *s1, const char *s2)
 {
 	int		len;
 	int		i;
 	int		j;
 	char	*str_j;
 
-	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	len = ft_strlen(s1) + ft_strlen(s2);
 	i = 0;
 	j = 0;
 	str_j = ft_calloc(len + 1, sizeof(char));
@@ -73,6 +72,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str_j[i + j] = s2[j];
 		j++;
 	}
+	free((void *) s1);
+	free((void *) s2);
 	return (str_j);
 }
 

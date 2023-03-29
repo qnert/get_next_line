@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/27 20:52:49 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/29 12:23:52 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ char	*read_bytes(int fd)
 	read_value = read(fd, buff, BUFFER_SIZE);
 	if (read_value >= 1)
 		return (buff);
+	free (buff);
 	return (NULL);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
 	unsigned int		i;
 	unsigned int		s_len;
@@ -52,18 +53,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (sub_str);
 }
 
-char	*ft_str_trim_back(char const *s)
+char	*ft_str_trim_back(const char *s)
 {
 	unsigned int	cpy_len;
+	char			*res;
 
 	cpy_len = 0;
-	while (s[cpy_len])
+	while (s[cpy_len] != '\0')
 	{
-		cpy_len++;
 		if (s[cpy_len] == '\n')
 			break ;
+		cpy_len++;
 	}
-	return (ft_substr(s, 0, cpy_len + 1));
+	res = ft_substr(s, 0, cpy_len + 1);
+	free((void *) s);
+	return (res);
 }
 
 char	*ft_str_trim_front(char const *s)
@@ -73,11 +77,11 @@ char	*ft_str_trim_front(char const *s)
 
 	s_len = ft_strlen(s);
 	start = 0;
-	while (s[start])
+	while (s[start] != '\0')
 	{
-		start++;
 		if (s[start] == '\n')
 			break ;
+		start++;
 	}
 	return (ft_substr(s, start + 1, s_len - start));
 }
@@ -87,17 +91,26 @@ char	*get_next_line(int fd)
 	static char	*line_str;
 	char		*tmp_buff;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	tmp_buff = read_bytes(fd);
-	if (tmp_buff == NULL)
-		return (NULL);
+	if (ft_strchr(line_str, '\n') == 0)
+	{
+		tmp_buff = read_bytes(fd);
+		if (tmp_buff == NULL)
+			return (NULL);
+	}
+	else
+	{
+		tmp_buff = line_str;
+		line_str = ft_str_trim_front(tmp_buff);
+		return (ft_str_trim_back(tmp_buff));
+	}
 	while (tmp_buff != NULL)
 	{
 		if (line_str == NULL)
 			line_str = tmp_buff;
 		else
-			line_str = ft_strjoin(line_str, tmp_buff);
+			line_str = ft_strjoin_free(line_str, tmp_buff);
 		if (ft_strchr(line_str, '\n') != 0)
 			break ;
 		tmp_buff = read_bytes(fd);
@@ -114,10 +127,10 @@ char	*get_next_line(int fd)
 // 	char	*s2;
 // 	char	*s3;
 
-// 	fd = open("read.txt", O_RDONLY);
-// 	s = get_next_line(0);
-// 	s2 = get_next_line(0);
-// 	s3 = get_next_line(0);
+// 	fd = open("test.txt", O_RDONLY);
+// 	s = get_next_line(fd);
+// 	s2 = get_next_line(fd);
+// 	s3 = get_next_line(fd);
 // 	printf("%s", s);
 // 	printf("%s", s2);
 // 	printf("%s", s3);
