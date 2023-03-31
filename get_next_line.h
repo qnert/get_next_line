@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/29 10:17:39 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/31 11:59:09 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 9
+#  define BUFFER_SIZE 42
 # endif
 
 # include <fcntl.h>

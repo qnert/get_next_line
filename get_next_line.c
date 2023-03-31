@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/29 12:23:52 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/31 12:00:30 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ char	*ft_str_trim_back(const char *s)
 	while (s[cpy_len] != '\0')
 	{
 		if (s[cpy_len] == '\n')
+		{
+			cpy_len++;
 			break ;
+		}
 		cpy_len++;
 	}
-	res = ft_substr(s, 0, cpy_len + 1);
+	res = ft_substr(s, 0, cpy_len);
 	free((void *) s);
 	return (res);
 }
@@ -80,10 +83,13 @@ char	*ft_str_trim_front(char const *s)
 	while (s[start] != '\0')
 	{
 		if (s[start] == '\n')
+		{
+			start++;
 			break ;
+		}
 		start++;
 	}
-	return (ft_substr(s, start + 1, s_len - start));
+	return (ft_substr(s, start, s_len - start));
 }
 
 char	*get_next_line(int fd)
@@ -93,7 +99,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	if (ft_strchr(line_str, '\n') == 0)
+	if (ft_strchr(line_str, '\n') == 0 || ft_strchr(line_str, '\0') == 0)
 	{
 		tmp_buff = read_bytes(fd);
 		if (tmp_buff == NULL)
@@ -111,7 +117,7 @@ char	*get_next_line(int fd)
 			line_str = tmp_buff;
 		else
 			line_str = ft_strjoin_free(line_str, tmp_buff);
-		if (ft_strchr(line_str, '\n') != 0)
+		if (ft_strchr(line_str, '\n') != 0 || ft_strchr(line_str, '\0') == 0)
 			break ;
 		tmp_buff = read_bytes(fd);
 	}
@@ -120,19 +126,19 @@ char	*get_next_line(int fd)
 	return (ft_str_trim_back(tmp_buff));
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*s;
-// 	char	*s2;
-// 	char	*s3;
+int	main(void)
+{
+	int		fd;
+	char	*s;
+	char	*s2;
+	char	*s3;
 
-// 	fd = open("test.txt", O_RDONLY);
-// 	s = get_next_line(fd);
-// 	s2 = get_next_line(fd);
-// 	s3 = get_next_line(fd);
-// 	printf("%s", s);
-// 	printf("%s", s2);
-// 	printf("%s", s3);
-// 	return (0);
-// }
+	fd = open("text.txt", O_RDONLY);
+	s = get_next_line(fd);
+	s2 = get_next_line(fd);
+	s3 = get_next_line(fd);
+	printf("%s", s);
+	printf("%s", s2);
+	printf("%s", s3);
+	return (0);
+}
