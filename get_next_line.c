@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/31 20:36:31 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/31 20:52:01 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,25 @@ char	*get_next_line(int fd)
 	if (line_str == NULL)
 	{
 		free (line_str);
-		return (NULL);
 	}
 	ret_buff = ft_str_trim_line(line_str);
 	line_str = ft_str_trim_front(line_str);
 	return (ret_buff);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*s;
-	char	*s2;
-	char	*s3;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*s;
+// 	char	*s2;
+// 	char	*s3;
 
-	fd = open("text.txt", O_RDONLY);
-	s = get_next_line(fd);
-	s2 = get_next_line(fd);
-	s3 = get_next_line(fd);
-	printf("%s", s);
-	printf("%s", s2);
-	printf("%s", s3);
-	return (0);
-}
+// 	fd = open("text.txt", O_RDONLY);
+// 	s = get_next_line(fd);
+// 	s2 = get_next_line(fd);
+// 	s3 = get_next_line(fd);
+// 	printf("%s", s);
+// 	printf("%s", s2);
+// 	printf("%s", s3);
+// 	return (0);
+// }
