@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/29 10:22:02 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/31 20:38:08 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ char	*ft_strjoin_free(const char *s1, const char *s2)
 		j++;
 	}
 	free((void *) s1);
-	free((void *) s2);
 	return (str_j);
 }
 
