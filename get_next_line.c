@@ -6,124 +6,91 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/31 12:00:30 by skunert          ###   ########.fr       */
+/*   Updated: 2023/03/31 15:50:35 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_bytes(int fd)
+char	*read_bytes(int fd, char *line_str)
 {
-	int			read_value;
-	char		*buff;
+	char	*buff;
+	int		read_value;
 
-	buff = ft_calloc(BUFFER_SIZE, sizeof(char));
-	read_value = read(fd, buff, BUFFER_SIZE);
-	if (read_value >= 1)
-		return (buff);
-	free (buff);
-	return (NULL);
+	if (line_str == NULL)
+		line_str = ft_calloc(1, 1);
+	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	read_value = 1;
+	while (read_value > 0)
+	{
+		ft_bzero(buff, BUFFER_SIZE + 1);
+		read_value = read(fd, buff, BUFFER_SIZE);
+		if (read_value == -1)
+			return (free(buff), free(line_str), NULL);
+		line_str = ft_strjoin_free(line_str, buff);
+		if (ft_strchr(line_str, '\n') != 0)
+			break ;
+	}
+	return (free (buff), line_str);
 }
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*ft_str_trim_back(char *line_str)
 {
-	unsigned int		i;
-	unsigned int		s_len;
-	char				*sub_str;
+	char	*buff;
+	int		i;
+	int		j;
 
 	i = 0;
-	s_len = ft_strlen((char *)s);
-	if (start > s_len)
-		len = 0;
-	if (len > s_len)
-		len = s_len;
-	if (start + len > s_len)
-		len = s_len - start;
-	sub_str = ft_calloc(len + 1, sizeof(char));
-	if (sub_str == NULL)
-		return (NULL);
-	while (start < s_len && i < len && s[start] != '\0' && s[i] != '\0')
-	{
-		if (start > ft_strlen((char *)s))
-			break ;
-		sub_str[i] = s[start];
+	j = 0;
+	while (line_str[i] != '\n' && line_str[i])
 		i++;
-		start++;
+	i++;
+	buff = ft_calloc(i + 1, sizeof(char));
+	while (j < i)
+	{
+		buff[j] = line_str[j];
+		j++;
 	}
-	return (sub_str);
+	return (buff);
 }
 
-char	*ft_str_trim_back(const char *s)
+char	*ft_str_trim_front(char *line_str)
 {
-	unsigned int	cpy_len;
-	char			*res;
+	char	*new_line_str;
+	int		i;
+	int		j;
 
-	cpy_len = 0;
-	while (s[cpy_len] != '\0')
+	i = 0;
+	j = 0;
+	while (line_str[i] != '\n' && line_str[i])
+		i++;
+		if (line_str[i] == '\0')
+			return (free(line_str), NULL);
+	i++;
+	new_line_str = ft_calloc(ft_strlen(line_str) - i + 1, sizeof(char));
+	while (line_str[i + j] != '\0')
 	{
-		if (s[cpy_len] == '\n')
-		{
-			cpy_len++;
-			break ;
-		}
-		cpy_len++;
+		new_line_str[j] = line_str[i + j];
+		j++;
 	}
-	res = ft_substr(s, 0, cpy_len);
-	free((void *) s);
-	return (res);
-}
-
-char	*ft_str_trim_front(char const *s)
-{
-	unsigned int	s_len;
-	unsigned int	start;
-
-	s_len = ft_strlen(s);
-	start = 0;
-	while (s[start] != '\0')
-	{
-		if (s[start] == '\n')
-		{
-			start++;
-			break ;
-		}
-		start++;
-	}
-	return (ft_substr(s, start, s_len - start));
+	new_line_str[j] = '\0';
+	free (line_str);
+	return (new_line_str);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*line_str;
-	char		*tmp_buff;
+	char		*ret_buff;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (BUFFER_SIZE <= 0 || read (fd, 0, 0) < 0 || fd < 0)
 		return (NULL);
-	if (ft_strchr(line_str, '\n') == 0 || ft_strchr(line_str, '\0') == 0)
-	{
-		tmp_buff = read_bytes(fd);
-		if (tmp_buff == NULL)
-			return (NULL);
-	}
-	else
-	{
-		tmp_buff = line_str;
-		line_str = ft_str_trim_front(tmp_buff);
-		return (ft_str_trim_back(tmp_buff));
-	}
-	while (tmp_buff != NULL)
-	{
-		if (line_str == NULL)
-			line_str = tmp_buff;
-		else
-			line_str = ft_strjoin_free(line_str, tmp_buff);
-		if (ft_strchr(line_str, '\n') != 0 || ft_strchr(line_str, '\0') == 0)
-			break ;
-		tmp_buff = read_bytes(fd);
-	}
-	tmp_buff = line_str;
-	line_str = ft_str_trim_front(tmp_buff);
-	return (ft_str_trim_back(tmp_buff));
+	line_str = read_bytes(fd, line_str);
+	if (line_str == NULL)
+		free (line_str);
+	ret_buff = ft_str_trim_back(line_str);
+	line_str = ft_str_trim_front(line_str);
+	return (ret_buff);
 }
 
 int	main(void)
