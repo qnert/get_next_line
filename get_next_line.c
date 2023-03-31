@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/31 20:52:01 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/01 00:21:21 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ char	*ft_str_trim_line(char *line_str)
 		i++;
 	i++;
 	buff = ft_calloc(i + 1, sizeof(char));
-	if (buff == NULL)
-		return (NULL);
 	while (line_str[j] != '\n' && line_str[j])
 	{
 		buff[j] = line_str[j];
@@ -74,8 +72,6 @@ char	*ft_str_trim_front(char *line_str)
 		return (NULL);
 	}
 	new_line_str = ft_calloc(ft_strlen(line_str) - i + 1, sizeof(char));
-	if (new_line_str == NULL)
-		return (NULL);
 	i++;
 	while (line_str[j + i] != '\0')
 	{
