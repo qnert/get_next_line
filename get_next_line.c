@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/04/01 16:32:08 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/01 16:35:20 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,23 +104,3 @@ char	*get_next_line(int fd)
 	line_str = ft_str_trim_front(line_str);
 	return (ret_buff);
 }
-
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*s;
-// 	char	*s2;
-// 	char	*s3;
-// 	char	*s4;
-
-// 	fd = open("test.txt", O_RDONLY);
-// 	s = get_next_line(fd);
-// 	s2 = get_next_line(fd);
-// 	s3 = get_next_line(fd);
-// 	s4 = get_next_line(fd);
-// 	printf("%s", s);
-// 	printf("%s", s2);
-// 	printf("%s", s3);
-// 	printf("%s", s4);
-// 	return (0);
-// }
