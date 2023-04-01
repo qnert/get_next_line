@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:33 by skunert           #+#    #+#             */
-/*   Updated: 2023/03/31 20:29:12 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/01 12:04:57 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdio.h>
 # include <unistd.h>
 
 size_t	ft_strlen(const char *s);
