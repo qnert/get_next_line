@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/04/01 12:34:37 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/01 19:44:11 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_strjoin_free(const char *s1, const char *s2)
 	i = 0;
 	j = 0;
 	str_j = ft_calloc(len + 1, sizeof(char));
-	if (!str_j)
+	if (str_j == NULL)
 		return (NULL);
 	while (s1[i] != '\0')
 	{
