@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/04/01 12:17:10 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/01 12:37:19 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ char	*read_bytes(int fd, char *line_str)
 	char	*buff;
 	int		read_value;
 
-	if (line_str == NULL)
-		line_str = ft_calloc(1, 1);
 	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	read_value = 1;
 	while (read_value > 0)
@@ -27,8 +25,9 @@ char	*read_bytes(int fd, char *line_str)
 		read_value = read(fd, buff, BUFFER_SIZE);
 		if (read_value == -1)
 		{
-			line_str[0] = '\0';
-			return (free (buff), free (line_str), NULL);
+			free(buff);
+			free(line_str);
+			return (NULL);
 		}
 		line_str = ft_strjoin_free(line_str, buff);
 		if (ft_strchr(line_str, '\n') != 0)
@@ -98,6 +97,8 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	if (line_str == NULL)
+		line_str = ft_calloc(1, 1);
 	line_str = read_bytes(fd, line_str);
 	if (line_str == NULL)
 	{
