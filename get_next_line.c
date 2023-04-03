@@ -6,12 +6,11 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:40:12 by skunert           #+#    #+#             */
-/*   Updated: 2023/04/01 19:49:18 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/03 16:02:25 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*read_bytes(int fd, char *line_str)
 {
@@ -20,6 +19,8 @@ char	*read_bytes(int fd, char *line_str)
 
 	if (line_str == NULL)
 		line_str = ft_calloc(1, 1);
+	if (line_str == NULL)
+		return (NULL);
 	buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (buff == NULL)
 		return (NULL);
@@ -29,11 +30,7 @@ char	*read_bytes(int fd, char *line_str)
 		ft_bzero(buff, BUFFER_SIZE + 1);
 		read_value = read(fd, buff, BUFFER_SIZE);
 		if (read_value == -1)
-		{
-			free(buff);
-			free(line_str);
-			return (NULL);
-		}
+			return (free(buff), free(line_str), NULL);
 		line_str = ft_strjoin_free(line_str, buff);
 		if (ft_strchr(line_str, '\n') != 0)
 			break ;
@@ -109,14 +106,3 @@ char	*get_next_line(int fd)
 	line_str = ft_str_trim_front(line_str);
 	return (ret_buff);
 }
-
-// int main(void)
-// {
-// 	char *s;
-// 	int fd = open("test.txt", O_RDONLY);
-
-// 	s = get_next_line(fd);
-// 	printf("%s\n", s);
-// 	free(s);
-// 	return (0);
-// }
