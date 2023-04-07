@@ -6,7 +6,7 @@
 /*   By: skunert <skunert@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:28 by skunert           #+#    #+#             */
-/*   Updated: 2023/04/03 17:09:26 by skunert          ###   ########.fr       */
+/*   Updated: 2023/04/07 15:12:31 by skunert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*ft_calloc(size_t nitems, size_t size)
 	size_t			protect;
 
 	protect = nitems * size;
-	if ((size != 0) && (shield / size != nitems))
+	if ((size != 0) && (protect / size != nitems))
 		return (NULL);
 	ptr = malloc(nitems * size);
 	if (!ptr)
